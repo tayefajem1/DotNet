@@ -13,8 +13,20 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: SonarQubePrepare@7
+  inputs:
+    SonarQube: 'Sonarqube_Dotnet'
+    scannerMode: 'dotnet'
+    dotnetScannerVersion: '10.1.1.111189'
+    projectKey: 'DotNetOla_DotNetOla_44eb7fcf-8de0-4783-84c7-0c3b7d01c57b'
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+- task: SonarQubePublish@7
+  inputs:
+    pollingTimeoutSec: '300'
+- task: SonarQubeAnalyze@7
+  inputs:
+    jdkversion: 'JAVA_HOME_17_X64'
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
