@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Dot_Ola.props" />
+</Project>
