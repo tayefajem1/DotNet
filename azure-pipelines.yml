@@ -18,7 +18,13 @@ steps:
 - task: Docker@0
   inputs:
     containerRegistry: 'DockerHub'
-    repository: 'tayefajem'
-    command: 'buildAndPush'
+    repository: 'tayefajem/olakenny'
+    command: 'build'
     Dockerfile: '**/Dockerfile'
-      
+    tags: '1'
+- task: Docker@0
+  inputs:
+    containerRegistry: 'DockerHub'
+    repository: 'tayefajem/olakenny'
+    command: 'push'
+    tags: '1'
