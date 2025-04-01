@@ -15,5 +15,10 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DockerHub'
+    repository: 'tayefajem'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
 
