@@ -16,15 +16,16 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 - task: Docker@0
+  displayName: build
   inputs:
-    containerRegistry: 'DockerHub'
-    repository: 'tayefajem/olakenny'
-    command: 'build'
-    Dockerfile: '**/Dockerfile'
-    tags: '1'
+    containerregistrytype: 'Container Registry'
+    dockerRegistryConnection: DockerHub
+    imageName: 'tayefajem/olajj:1'
 - task: Docker@0
+  displayName: Push
   inputs:
-    containerRegistry: 'DockerHub'
-    repository: 'tayefajem/olakenny'
-    command: 'push'
-    tags: '1'
+    containerregistrytype: 'Container Registry'
+    dockerRegistryConnection: DockerHub
+    action: 'Push an image'
+    imageName: 'tayefajem/olajj:1'
+
