@@ -19,11 +19,6 @@ steps:
   inputs:
     containerRegistry: 'DockerHub'
     repository: 'tayefajem'
-    command: 'build'
+    command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    addPipelineData: false
-- task: Docker@2
-  inputs:
-    containerRegistry: 'DockerHub'
-    repository: 'tayefajem'
-    command: 'push'
+      
