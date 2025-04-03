@@ -1,0 +1,44 @@
+#https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment-loadbalancer-taye
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-ui-loadbalancer-taye
+  template:
+    metadata:
+      labels:
+        app: my-ui-loadbalancer=taye
+    spec:
+      containers:
+      - name: my-container-lb
+        image: tayefajem/olaryan:1.0.0
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-ui-loadbalancer-taye
+  labels:
+    app: my-ui-loadbalancer-taye
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-tcp-idle-timeout: "4"
+#    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+#    service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "svc"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: my-ui-loadbalancer-taye
