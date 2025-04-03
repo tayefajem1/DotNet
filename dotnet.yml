@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-deployment-loadbalancer-taye
+  name: my-deployment-loadbalancer
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: my-ui-loadbalancer-taye
+      app: my-ui-loadbalancer
   template:
     metadata:
       labels:
-        app: my-ui-loadbalancer=taye
+        app: my-ui-loadbalancer
     spec:
       containers:
       - name: my-container-lb
-        image: tayefajem/olaryan:1.0.0
+        image: handsondevops/sample-ui:1.0.0
         resources:
           requests:
             cpu: 100m
@@ -29,9 +29,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-ui-loadbalancer-taye
+  name: my-ui-loadbalancer
   labels:
-    app: my-ui-loadbalancer-taye
+    app: my-ui-loadbalancer
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-tcp-idle-timeout: "4"
 #    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
@@ -41,4 +41,4 @@ spec:
   ports:
   - port: 80
   selector:
-    app: my-ui-loadbalancer-taye
+    app: my-ui-loadbalancer
