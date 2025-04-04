@@ -1,21 +1,20 @@
-#https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-deployment-loadbalancertaye
+  name: my-deployment-dotnetcore-app
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: my-ui-loadbalancertaye
+      app: my-dotnetcore-app
   template:
     metadata:
       labels:
-        app: my-ui-loadbalancertaye
+        app: my-dotnetcore-app
     spec:
       containers:
-      - name: my-container-lb
-        image: tayefajem/sample-ui:1.0.0
+      - name: my-dotnetcore-app
+        image: tayefajem/my-dotnetcore-app:latest
         resources:
           requests:
             cpu: 100m
@@ -29,9 +28,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-ui-loadbalancertayefajem
+  name: my-dotnetcore-app
   labels:
-    app: my-ui-loadbalancer
+    app: my-dotnetcore-app
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-tcp-idle-timeout: "4"
 #    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
@@ -40,5 +39,6 @@ spec:
   type: LoadBalancer
   ports:
   - port: 80
+    targetPort: 80
   selector:
-    app: my-ui-loadbalancertaye
+    app: my-dotnetcore-app
