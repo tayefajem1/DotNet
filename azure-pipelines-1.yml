@@ -25,9 +25,6 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
-
-# do this after your tests have run
-- script: dotnet test <test-project> --logger trx --collect "Code Coverage"
 - task: PublishTestResults@2
   inputs:
     testRunner: VSTest
