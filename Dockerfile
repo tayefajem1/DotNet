@@ -1,5 +1,5 @@
 # Use official .NET SDK image for build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM arm64v8/alpine:latest
 
 # Set working directory inside the container
 WORKDIR /app
