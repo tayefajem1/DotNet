@@ -32,6 +32,13 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code Coverage"'
+
+# do this after your tests have run
+- script: dotnet test <test-project> --logger trx --collect "Code Coverage"
+- task: PublishTestResults@2
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
