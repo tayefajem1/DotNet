@@ -15,7 +15,7 @@ COPY . ./
 RUN dotnet publish -c Release -o /out
 
 # Use official .NET runtime image for runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+FROM arm64v8/alpine:latest
 
 # Set working directory for runtime
 WORKDIR /app
