@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app: my-ui-loadbalancer
+        app: my-ui-loadbalancertaye
     spec:
       containers:
       - name: my-container-lb
