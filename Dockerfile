@@ -21,4 +21,4 @@ COPY --from=build /app/out ./
 EXPOSE 80
 
 # Define the entry point for the container
-ENTRYPOINT ["dotnet", "YourApplication.dll"]
+ENTRYPOINT ["./aspnetapp"]
