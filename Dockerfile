@@ -1,26 +1,24 @@
-# Use the .NET SDK Alpine image for building the application
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
-WORKDIR /source
-
-# Copy the project files and restore dependencies
-COPY aspnetapp/*.csproj .
-RUN dotnet restore -a arm64
-
-# Copy the remaining source code and publish the application
-COPY aspnetapp/. .
-RUN dotnet publish --no-restore -a arm64 -o /app
-
-# Use the ASP.NET Core runtime Alpine image for running the application
-FROM  mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+# Stage 1: Build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
-EXPOSE 8080
 
-# Copy the published application from the build stage
-COPY --from=build /app .
+# Copy project files and restore dependencies
+COPY *.csproj ./
+RUN dotnet restore
 
-# Uncomment to enable non-root user
-# USER $APP_UID
+# Copy the remaining source code and build the application
+COPY . ./
+RUN dotnet publish -c Release -o out
 
-ENTRYPOINT ["./aspnetapp"]
+# Stage 2: Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
 
+# Copy the build output from the previous stage
+COPY --from=build /app/out ./
 
+# Expose the port the application runs on
+EXPOSE 80
+
+# Define the entry point for the container
+ENTRYPOINT ["dotnet", "YourApplication.dll"]
