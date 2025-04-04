@@ -1,5 +1,5 @@
 # Use the .NET SDK Alpine image for building the application
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 WORKDIR /source
 
 # Copy the project files and restore dependencies
@@ -11,7 +11,7 @@ COPY aspnetapp/. .
 RUN dotnet publish --no-restore -a arm64 -o /app
 
 # Use the ASP.NET Core runtime Alpine image for running the application
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+FROM  mcr.microsoft.com/dotnet/aspnet:8.0-alpine
 WORKDIR /app
 EXPOSE 8080
 
