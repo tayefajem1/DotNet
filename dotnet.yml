@@ -2,12 +2,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-deployment-loadbalancer
+  name: my-deployment-loadbalancertaye
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: my-ui-loadbalancer
+      app: my-ui-loadbalancertaye
   template:
     metadata:
       labels:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: my-container-lb
-        image: handsondevops/sample-ui:1.0.0
+        image: tayefajem/sample-ui:1.0.0
         resources:
           requests:
             cpu: 100m
@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-ui-loadbalancer
+  name: my-ui-loadbalancertayefajem
   labels:
     app: my-ui-loadbalancer
   annotations:
@@ -41,4 +41,4 @@ spec:
   ports:
   - port: 80
   selector:
-    app: my-ui-loadbalancer
+    app: my-ui-loadbalancertaye
